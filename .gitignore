@@ -64,3 +64,12 @@ yarn-error.log
 
 #Private Config files
 src/private_config.ts
+
+.vscode
+
+contracts/cache
+contracts/out
+
+circuits/build
+circuits/tmp
+circuits/tau
