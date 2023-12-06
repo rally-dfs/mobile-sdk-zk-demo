@@ -315,11 +315,10 @@ contract RPS is ERC2771Recipient {
 
     /// @notice Gets per player nonce for signature generation
     /// @return nonce nonce to use for signature generation
-    function getNonce() external view returns (uint256 nonce) {
-        address sender = _msgSender();
+    function getNonce(address player) external view returns (uint256 nonce) {
         for (uint256 i = 0; i < rounds.length; i++) {
             Round memory round = rounds[i];
-            if (round.player1 == sender) {
+            if (round.player1 == player) {
                 nonce++;
             }
         }

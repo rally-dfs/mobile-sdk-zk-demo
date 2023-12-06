@@ -145,7 +145,7 @@ contract RPSTest is DSTest {
     function testStartRound() public {
         uint256[8] memory proof = moveProofUints[0];
 
-        uint256 nonceBefore = rps.getNonce();
+        uint256 nonceBefore = rps.getNonce(address(this));
         uint256 roundBefore = rps.totalRounds();
         uint64 bt = uint64(block.timestamp);
 
@@ -162,7 +162,7 @@ contract RPSTest is DSTest {
         assertEq(round.move2, rps.DEAD_MOVE());
         assertTrue(!round.ended);
 
-        uint256 nonceAfter = rps.getNonce();
+        uint256 nonceAfter = rps.getNonce(address(this));
         uint256 roundAfter = rps.totalRounds();
         assertEq(roundBefore + 1, roundAfter);
         assertEq(nonceBefore + 1, nonceAfter);
