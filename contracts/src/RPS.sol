@@ -80,7 +80,7 @@ contract RPS is ERC2771Recipient {
     /// Immutable parameters
     /// -----------------------------------------------------------------------
     uint8 public immutable DEAD_MOVE = 3;
-    IMinimalERC20 public immutable botgold;
+    IMinimalERC20 public immutable wagerToken;
 
     /// -----------------------------------------------------------------------
     /// Storage variables
@@ -88,8 +88,9 @@ contract RPS is ERC2771Recipient {
     uint256 public totalRounds;
     Round[] public rounds;
 
-    constructor(address _botgold) {
-        botgold = IMinimalERC20(_botgold);
+    constructor(address _wagerToken, address _forwarder) {
+        wagerToken = IMinimalERC20(_wagerToken);
+        _setTrustedForwarder(_forwarder);
     }
 
     /// -----------------------------------------------------------------------
@@ -115,7 +116,7 @@ contract RPS is ERC2771Recipient {
         /// State updates
         /// -------------------------------------------------------------------
         Round memory round = Round(
-            msg.sender,
+            _msgSender(),
             address(0),
             params.moveAttestation,
             params.permitAmount,
@@ -137,8 +138,8 @@ contract RPS is ERC2771Recipient {
         /// Effects
         /// -------------------------------------------------------------------
         if (params.permitAmount > 0) {
-            botgold.permit(
-                msg.sender,
+            wagerToken.permit(
+                _msgSender(),
                 address(this),
                 params.permitAmount,
                 params.permitDeadline,
@@ -146,7 +147,7 @@ contract RPS is ERC2771Recipient {
                 params.permitR,
                 params.permitS
             );
-            botgold.transferFrom(msg.sender, address(this), params.permitAmount);
+            wagerToken.transferFrom(_msgSender(), address(this), params.permitAmount);
         }
 
         emit RoundStarted(rounds.length - 1, params.permitAmount, params.maxRoundTime);
@@ -172,7 +173,7 @@ contract RPS is ERC2771Recipient {
         /// State updates
         /// -------------------------------------------------------------------
         round.move2 = params.move;
-        round.player2 = msg.sender;
+        round.player2 = _msgSender();
         round.move2PlayedAt = uint64(block.timestamp);
 
         rounds[params.roundId] = round;
@@ -181,8 +182,8 @@ contract RPS is ERC2771Recipient {
         /// Effects
         /// -------------------------------------------------------------------
         if (round.wager > 0) {
-            botgold.permit(
-                msg.sender,
+            wagerToken.permit(
+                _msgSender(),
                 address(this),
                 round.wager,
                 params.permitDeadline,
@@ -190,7 +191,7 @@ contract RPS is ERC2771Recipient {
                 params.permitR,
                 params.permitS
             );
-            botgold.transferFrom(msg.sender, address(this), round.wager);
+            wagerToken.transferFrom(_msgSender(), address(this), round.wager);
         }
 
         emit Move2Played(params.roundId);
@@ -246,12 +247,12 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         if (round.wager > 0) {
             if (round.winner == 1) {
-                botgold.transfer(round.player1, round.wager * 2);
+                wagerToken.transfer(round.player1, round.wager * 2);
             } else if (round.winner == 2) {
-                botgold.transfer(round.player2, round.wager * 2);
+                wagerToken.transfer(round.player2, round.wager * 2);
             } else {
-                botgold.transfer(round.player1, round.wager);
-                botgold.transfer(round.player2, round.wager);
+                wagerToken.transfer(round.player1, round.wager);
+                wagerToken.transfer(round.player2, round.wager);
             }
         }
 
@@ -287,7 +288,7 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         /// Effects
         /// -------------------------------------------------------------------
-        botgold.transfer(round.player2, round.wager * 2);
+        wagerToken.transfer(round.player2, round.wager * 2);
 
         emit RoundEnded(roundId, 2);
     }
@@ -314,7 +315,7 @@ contract RPS is ERC2771Recipient {
     function getNonce() external view returns (uint256 nonce) {
         for (uint256 i = 0; i < rounds.length; i++) {
             Round memory round = rounds[i];
-            if (round.player1 == msg.sender) {
+            if (round.player1 == _msgSender()) {
                 nonce++;
             }
         }

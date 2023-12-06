@@ -20,7 +20,7 @@ contract RPSTest is DSTest {
     function setUp() public {
         erc20 = new TestERC20("BotGold", "BG", 18);
 
-        rps = new RPS(address(erc20));
+        rps = new RPS(address(erc20), address(0));
     }
 
     uint256[8][4] moveProofUints = [
