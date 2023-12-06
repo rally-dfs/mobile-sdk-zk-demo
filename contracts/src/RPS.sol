@@ -115,8 +115,10 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         /// State updates
         /// -------------------------------------------------------------------
+        
+        address sender = _msgSender();
         Round memory round = Round(
-            _msgSender(),
+            sender,
             address(0),
             params.moveAttestation,
             params.permitAmount,
@@ -139,7 +141,7 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         if (params.permitAmount > 0) {
             wagerToken.permit(
-                _msgSender(),
+                sender,
                 address(this),
                 params.permitAmount,
                 params.permitDeadline,
@@ -147,7 +149,7 @@ contract RPS is ERC2771Recipient {
                 params.permitR,
                 params.permitS
             );
-            wagerToken.transferFrom(_msgSender(), address(this), params.permitAmount);
+            wagerToken.transferFrom(sender, address(this), params.permitAmount);
         }
 
         emit RoundStarted(rounds.length - 1, params.permitAmount, params.maxRoundTime);
@@ -172,8 +174,9 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         /// State updates
         /// -------------------------------------------------------------------
+        address sender = _msgSender();
         round.move2 = params.move;
-        round.player2 = _msgSender();
+        round.player2 = sender;
         round.move2PlayedAt = uint64(block.timestamp);
 
         rounds[params.roundId] = round;
@@ -183,7 +186,7 @@ contract RPS is ERC2771Recipient {
         /// -------------------------------------------------------------------
         if (round.wager > 0) {
             wagerToken.permit(
-                _msgSender(),
+                sender,
                 address(this),
                 round.wager,
                 params.permitDeadline,
@@ -191,7 +194,7 @@ contract RPS is ERC2771Recipient {
                 params.permitR,
                 params.permitS
             );
-            wagerToken.transferFrom(_msgSender(), address(this), round.wager);
+            wagerToken.transferFrom(sender, address(this), round.wager);
         }
 
         emit Move2Played(params.roundId);
@@ -313,9 +316,10 @@ contract RPS is ERC2771Recipient {
     /// @notice Gets per player nonce for signature generation
     /// @return nonce nonce to use for signature generation
     function getNonce() external view returns (uint256 nonce) {
+        address sender = _msgSender();
         for (uint256 i = 0; i < rounds.length; i++) {
             Round memory round = rounds[i];
-            if (round.player1 == _msgSender()) {
+            if (round.player1 == sender) {
                 nonce++;
             }
         }
