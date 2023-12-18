@@ -1,41 +1,35 @@
 /* eslint-disable react-native/no-inline-styles */
-import { useNavigation } from '@react-navigation/native';
 import { getAccount } from '@rly-network/mobile-sdk';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Share, Text, View } from 'react-native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { ActivityIndicator, Share, Text, View } from 'react-native';
+import { useSetRecoilState } from 'recoil';
 import { RlyNetwork } from '../../App';
-import InfoButton from '../components/InfoButton';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
-import { balance as balanceState, errorMessage } from '../state';
-import { useProofGen } from '../hooks/useProofGen';
+import { errorMessage } from '../state';
 import { BigNumber } from 'ethers';
-import { getNonce, getProvider, getRPSContract, getSecretFromNonce } from '../utils';
+import { getProvider, getRPSContract } from '../utils';
 import { RPS } from '../contracts/RPS';
 import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gsnClient/utils';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Move } from './types';
+import { RootStackParamList } from '../components/AppRouting';
 
-export default function StartRoundScreen() {
-  const rps = getRPSContract();
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Move2'>;
+
+export default function Move2Screen({ route, navigation }: Props) {
   const provider = getProvider();
-  const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
-  const [txHash, setTxHash] = useState('');
+  const rps = getRPSContract();
+  const { txHash } = route.params;
   const [status, setStatus] = useState('');
-  const [account, setAccount] = useState('');
+  const [loading, setLoading] = useState(false);
   const [move, setMove] = useState<Move>(null);
-  const [nonce, setNonce] = useState(0);
-  const [secret, setSecret] = useState(0n);
-  const [moveAttestation, setMoveAttestation] = useState('');
-  const [proof, setProof] = useState<BigInt[]>([]);
-  const [, setBalance] = useRecoilState(balanceState);
+  const [move2TxHash, setMove2TxHash] = useState('');
+  const [account, setAccount] = useState('');
+  const [roundId, setRoundId] = useState(0);
   const setErrorMessage = useSetRecoilState(errorMessage);
-  const { calculateProof: calculateAttestProof } = useProofGen<{
-    readonly move: BigInt;
-    readonly secret: BigInt;
-  }>(require('../circuits/attestValidMove.wasm'), require('../circuits/attestValidMove.zkey'), 1);
 
   const appendStatus = (newStatus: string) => {
     setStatus(status + "\n" + newStatus);
@@ -43,12 +37,11 @@ export default function StartRoundScreen() {
 
   useEffect(() => {
     const getChainData = async () => {
-      setStatus('Getting chain data...');
-      const nonce = await getNonce();
-      setNonce(nonce);
-      const newSecret = await getSecretFromNonce(nonce);
-      setSecret(newSecret);
+      if (!txHash || txHash === '') {
+        return;
+      }
 
+      setStatus('Getting chain data...');
       const fromAccount = await getAccount();
 
       if (!fromAccount) {
@@ -56,6 +49,23 @@ export default function StartRoundScreen() {
       }
 
       setAccount(fromAccount);
+
+      const receipt = await provider.getTransactionReceipt(txHash);
+
+      const logs = receipt.logs.filter((x) => x.address === rps.address && x).map((x) => rps.interface.parseLog(x));
+      if (logs.length === 0) {
+        throw new Error('No logs found');
+      }
+      const log = logs[0];
+
+      if (log.name !== 'RoundStarted') {
+        throw new Error('No RoundStarted event found');
+      }
+
+      const roundId = log.args.roundId as BigNumber
+
+      setRoundId(roundId.toNumber());
+
       setStatus('Getting chain data...✅');
     }
 
@@ -65,36 +75,10 @@ export default function StartRoundScreen() {
         body: 'Error was: ' + e.message,
       });
     });
-  }, []);
+  }, [txHash]);
 
   useEffect(() => {
-    if (move === null || secret === 0n) {
-      return;
-    }
-    const calculateProof = async () => {
-      appendStatus('Calculating proof...');
-      setLoading(true);
-      const attestResults = await calculateAttestProof({ move, secret });
-      const newMoveAttestation = "0x" + attestResults.publicSignals[0].toString(16);
-
-      setProof(attestResults.proof);
-      setMoveAttestation(newMoveAttestation);
-      setLoading(false);
-      appendStatus('Calculating proof...✅');
-    }
-
-    calculateProof().catch((e) => {
-      setLoading(false);
-      setErrorMessage({
-        title: 'Unable to calculate proof',
-        body: 'Error was: ' + e.message,
-      });
-    })
-  }, [move, secret]);
-
-
-  useEffect(() => {
-    if (moveAttestation === "" || proof.length === 0) {
+    if (move === null || !txHash || txHash === '') {
       return;
     }
 
@@ -102,20 +86,17 @@ export default function StartRoundScreen() {
       setLoading(true);
       appendStatus('Submitting to chain...');
 
-      const params: RPS.StartParamsStruct = {
-        proof: proof.map((x) => BigNumber.from(x)),
-        moveAttestation,
-        nonce,
-        maxRoundTime: 0,
-        permitAmount: 0,
+      const params: RPS.Move2ParamsStruct = {
+        roundId,
+        move: BigNumber.from(move),
         permitDeadline: 0,
         permitV: 0,
         permitR: '0x0000000000000000000000000000000000000000000000000000000000000000',
         permitS: '0x0000000000000000000000000000000000000000000000000000000000000000'
       };
-      const tx = await rps.populateTransaction.startRound(params);
+      const tx = await rps.populateTransaction.submitMove2(params);
 
-      const gas = await rps.estimateGas.startRound(params, {
+      const gas = await rps.estimateGas.submitMove2(params, {
         from: account,
       });
 
@@ -134,7 +115,7 @@ export default function StartRoundScreen() {
       const result = await RlyNetwork.relay?.(gsnTx);
 
       if (result) {
-        setTxHash(result);
+        setMove2TxHash(result);
       }
 
       setLoading(false);
@@ -148,12 +129,12 @@ export default function StartRoundScreen() {
       });
     });
 
-  }, [moveAttestation, proof]);
+  }, [roundId, move]);
 
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: `You've been challenged to a game of Rock Paper Scissors. rlyrps://play/${txHash}`
+        message: `I played my move, time to finish up and reveal the winner. rlyrps://finish/${move2TxHash}`
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -170,7 +151,7 @@ export default function StartRoundScreen() {
         body: 'Error was: ' + e.message,
       });
     }
-  };
+  }
 
   return (
     <>
@@ -207,18 +188,18 @@ export default function StartRoundScreen() {
               }}
             />
           </View>
+          <View style={{ marginTop: 12 }}>
+            <Text>{status}</Text>
+          </View>
           {loading && (
             <View style={{ marginTop: 12 }}>
               <ActivityIndicator />
             </View>
           )}
-          <View style={{ marginTop: 12 }}>
-            <Text>{status}</Text>
-          </View>
-          {txHash && (
+          {move2TxHash && (
             <>
               <View style={{ marginTop: 12 }}>
-                <Text>{txHash}</Text>
+                <Text>{move2TxHash}</Text>
               </View>
               <View style={{ marginTop: 12 }}>
                 <StandardButton
@@ -230,8 +211,6 @@ export default function StartRoundScreen() {
               </View>
             </>
           )}
-
-
         </View>
       </ScreenContainer>
     </>

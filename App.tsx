@@ -7,12 +7,12 @@
 
 import React from 'react';
 
-import {RecoilRoot} from 'recoil';
-import {RlyAmoyNetwork, Network} from '@rly-network/mobile-sdk';
+import { RecoilRoot } from 'recoil';
+import { RlyAmoyNetwork, Network } from '@rly-network/mobile-sdk';
 
 import AppRouting from './src/components/AppRouting';
 import ErrorToast from './src/components/ErrorToast';
-import {PrivateConfig} from './src/private_config';
+import { PrivateConfig } from './src/private_config';
 
 export const RlyNetwork: Network = RlyAmoyNetwork;
 

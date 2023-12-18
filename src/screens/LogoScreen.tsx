@@ -82,6 +82,24 @@ export default function LogoScreen() {
                 }}
               />
             </View>
+            <View style={{ marginTop: 12 }}>
+              <StandardButton
+                title="Respond to a challenge"
+                onPress={() => {
+                  //@ts-ignore
+                  navigation.navigate('Move2');
+                }}
+              />
+            </View>
+            <View style={{ marginTop: 12 }}>
+              <StandardButton
+                title="End a round and find out winner"
+                onPress={() => {
+                  //@ts-ignore
+                  navigation.navigate('EndRound');
+                }}
+              />
+            </View>
             {transfering && (
               <View style={{ marginTop: 12 }}>
                 <ActivityIndicator />

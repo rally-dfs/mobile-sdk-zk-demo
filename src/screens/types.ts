@@ -1,0 +1,1 @@
+export type Move = null | 0n | 1n | 2n;
