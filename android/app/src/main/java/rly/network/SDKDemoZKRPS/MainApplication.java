@@ -1,4 +1,4 @@
-package com.sdkdemoapp;
+package rly.network.SDKDemoZKRPS;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

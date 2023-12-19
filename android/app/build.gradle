@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.sdkdemoapp"
+    namespace "rly.network.SDKDemoZKRPS"
     defaultConfig {
-        applicationId "com.sdkdemoapp"
+        applicationId "rly.network.SDKDemoZKRPS"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

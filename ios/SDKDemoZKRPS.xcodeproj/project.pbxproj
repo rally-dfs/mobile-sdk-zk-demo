@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* SDKDemoAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SDKDemoAppTests.m */; };
+		00E356F31AD99517003FC87E /* SDKDemoZKRPSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SDKDemoZKRPSTests.m */; };
 		01E65ECE2A9FB6390057ECDE /* libprovers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E65ECD2A9FB6390057ECDE /* libprovers.a */; };
-		0C80B921A6F3F58F76C31292 /* libPods-SDKDemoApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoApp.a */; };
+		0C80B921A6F3F58F76C31292 /* libPods-SDKDemoZKRPS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoZKRPS.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-SDKDemoApp-SDKDemoAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoApp-SDKDemoAppTests.a */; };
+		7699B88040F8A987B510C191 /* libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -23,30 +23,30 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = SDKDemoApp;
+			remoteInfo = SDKDemoZKRPS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* SDKDemoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDKDemoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* SDKDemoZKRPSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDKDemoZKRPSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* SDKDemoAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKDemoAppTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* SDKDemoZKRPSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKDemoZKRPSTests.m; sourceTree = "<group>"; };
 		01E65EC72A9EA9F20057ECDE /* libprover_cxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprover_cxx.a; path = "../tm/rust/target/aarch64-apple-ios/release/libprover_cxx.a"; sourceTree = "<group>"; };
 		01E65EC92A9EABC00057ECDE /* libprover_cxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprover_cxx.a; path = rust_libs/libprover_cxx.a; sourceTree = "<group>"; };
 		01E65ECD2A9FB6390057ECDE /* libprovers.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprovers.a; path = rust_libs/libprovers.a; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* SDKDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SDKDemoApp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = SDKDemoApp/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SDKDemoApp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SDKDemoApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SDKDemoApp/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoApp-SDKDemoAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDKDemoApp-SDKDemoAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-SDKDemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoApp.debug.xcconfig"; path = "Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-SDKDemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoApp.release.xcconfig"; path = "Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-SDKDemoApp-SDKDemoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoApp-SDKDemoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDKDemoApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SDKDemoApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoApp-SDKDemoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoApp-SDKDemoAppTests.release.xcconfig"; path = "Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* SDKDemoZKRPS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKDemoZKRPS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SDKDemoZKRPS/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = SDKDemoZKRPS/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SDKDemoZKRPS/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SDKDemoZKRPS/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SDKDemoZKRPS/main.m; sourceTree = "<group>"; };
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4392A12AC88292D35C810B /* Pods-SDKDemoZKRPS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoZKRPS.debug.xcconfig"; path = "Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-SDKDemoZKRPS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoZKRPS.release.xcconfig"; path = "Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.debug.xcconfig"; path = "Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoZKRPS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDKDemoZKRPS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SDKDemoZKRPS/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.release.xcconfig"; path = "Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-SDKDemoApp-SDKDemoAppTests.a in Frameworks */,
+				7699B88040F8A987B510C191 /* libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,20 +64,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				01E65ECE2A9FB6390057ECDE /* libprovers.a in Frameworks */,
-				0C80B921A6F3F58F76C31292 /* libPods-SDKDemoApp.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-SDKDemoZKRPS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* SDKDemoAppTests */ = {
+		00E356EF1AD99517003FC87E /* SDKDemoZKRPSTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* SDKDemoAppTests.m */,
+				00E356F21AD99517003FC87E /* SDKDemoZKRPSTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = SDKDemoAppTests;
+			path = SDKDemoZKRPSTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -88,7 +88,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* SDKDemoApp */ = {
+		13B07FAE1A68108700A75B9A /* SDKDemoZKRPS */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -98,7 +98,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = SDKDemoApp;
+			name = SDKDemoZKRPS;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -108,8 +108,8 @@
 				01E65EC72A9EA9F20057ECDE /* libprover_cxx.a */,
 				01E65EC92A9EABC00057ECDE /* libprover_cxx.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoApp.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoApp-SDKDemoAppTests.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-SDKDemoZKRPS.a */,
+				19F6CBCC0A4E27FBF8BF4A61 /* libPods-SDKDemoZKRPS-SDKDemoZKRPSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -124,9 +124,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* SDKDemoApp */,
+				13B07FAE1A68108700A75B9A /* SDKDemoZKRPS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* SDKDemoAppTests */,
+				00E356EF1AD99517003FC87E /* SDKDemoZKRPSTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -139,8 +139,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* SDKDemoApp.app */,
-				00E356EE1AD99517003FC87E /* SDKDemoAppTests.xctest */,
+				13B07F961A680F5B00A75B9A /* SDKDemoZKRPS.app */,
+				00E356EE1AD99517003FC87E /* SDKDemoZKRPSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,10 +148,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-SDKDemoApp.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-SDKDemoApp.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-SDKDemoApp-SDKDemoAppTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoApp-SDKDemoAppTests.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-SDKDemoZKRPS.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-SDKDemoZKRPS.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* SDKDemoAppTests */ = {
+		00E356ED1AD99517003FC87E /* SDKDemoZKRPSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SDKDemoAppTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SDKDemoZKRPSTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -175,14 +175,13 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = SDKDemoAppTests;
-			productName = SDKDemoAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* SDKDemoAppTests.xctest */;
+			name = SDKDemoZKRPSTests;
+			productReference = 00E356EE1AD99517003FC87E /* SDKDemoZKRPSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* SDKDemoApp */ = {
+		13B07F861A680F5B00A75B9A /* SDKDemoZKRPS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SDKDemoApp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SDKDemoZKRPS" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -197,9 +196,9 @@
 			);
 			dependencies = (
 			);
-			name = SDKDemoApp;
-			productName = SDKDemoApp;
-			productReference = 13B07F961A680F5B00A75B9A /* SDKDemoApp.app */;
+			name = SDKDemoZKRPS;
+			productName = SDKDemoZKRPS;
+			productReference = 13B07F961A680F5B00A75B9A /* SDKDemoZKRPS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -220,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SDKDemoApp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SDKDemoZKRPS" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -233,8 +232,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* SDKDemoApp */,
-				00E356ED1AD99517003FC87E /* SDKDemoAppTests */,
+				13B07F861A680F5B00A75B9A /* SDKDemoZKRPS */,
+				00E356ED1AD99517003FC87E /* SDKDemoZKRPSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -281,15 +280,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -307,7 +306,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SDKDemoApp-SDKDemoAppTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -329,7 +328,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SDKDemoApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SDKDemoZKRPS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -342,15 +341,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -359,15 +358,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp/Pods-SDKDemoApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS/Pods-SDKDemoZKRPS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -376,15 +375,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoApp-SDKDemoAppTests/Pods-SDKDemoApp-SDKDemoAppTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests/Pods-SDKDemoZKRPS-SDKDemoZKRPSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -413,7 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* SDKDemoAppTests.m in Sources */,
+				00E356F31AD99517003FC87E /* SDKDemoZKRPSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +430,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* SDKDemoApp */;
+			target = 13B07F861A680F5B00A75B9A /* SDKDemoZKRPS */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -439,14 +438,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SDKDemoApp-SDKDemoAppTests.debug.xcconfig */;
+			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SDKDemoAppTests/Info.plist;
+				INFOPLIST_FILE = SDKDemoZKRPSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,19 +457,19 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoZKRPS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKDemoApp.app/SDKDemoApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKDemoZKRPS.app/SDKDemoZKRPS";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoApp-SDKDemoAppTests.release.xcconfig */;
+			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-SDKDemoZKRPS-SDKDemoZKRPSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = SDKDemoAppTests/Info.plist;
+				INFOPLIST_FILE = SDKDemoZKRPSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -482,22 +481,23 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoZKRPS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKDemoApp.app/SDKDemoApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKDemoZKRPS.app/SDKDemoZKRPS";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SDKDemoApp.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-SDKDemoZKRPS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Z7PK5ZT65N;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = SDKDemoApp/Info.plist;
+				INFOPLIST_FILE = SDKDemoZKRPS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SDKDemoZKRPS;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,8 +513,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoSimpleTransfer;
-				PRODUCT_NAME = SDKDemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoZKRPS;
+				PRODUCT_NAME = SDKDemoZKRPS;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -523,13 +523,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SDKDemoApp.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-SDKDemoZKRPS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Z7PK5ZT65N;
-				INFOPLIST_FILE = SDKDemoApp/Info.plist;
+				INFOPLIST_FILE = SDKDemoZKRPS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SDKDemoZKRPS;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -545,8 +546,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoSimpleTransfer;
-				PRODUCT_NAME = SDKDemoApp;
+				PRODUCT_BUNDLE_IDENTIFIER = rly.network.SDKDemoZKRPS;
+				PRODUCT_NAME = SDKDemoZKRPS;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -717,7 +718,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SDKDemoAppTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SDKDemoZKRPSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -726,7 +727,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SDKDemoApp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SDKDemoZKRPS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -735,7 +736,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SDKDemoApp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SDKDemoZKRPS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

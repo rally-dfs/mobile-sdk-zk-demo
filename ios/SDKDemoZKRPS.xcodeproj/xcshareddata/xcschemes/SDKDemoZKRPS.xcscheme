@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "SDKDemoApp.app"
-               BlueprintName = "SDKDemoApp"
-               ReferencedContainer = "container:SDKDemoApp.xcodeproj">
+               BuildableName = "SDKDemoZKRPS.app"
+               BlueprintName = "SDKDemoZKRPS"
+               ReferencedContainer = "container:SDKDemoZKRPS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "SDKDemoAppTests.xctest"
-               BlueprintName = "SDKDemoAppTests"
-               ReferencedContainer = "container:SDKDemoApp.xcodeproj">
+               BuildableName = "SDKDemoZKRPSTests.xctest"
+               BlueprintName = "SDKDemoZKRPSTests"
+               ReferencedContainer = "container:SDKDemoZKRPS.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SDKDemoApp.app"
-            BlueprintName = "SDKDemoApp"
-            ReferencedContainer = "container:SDKDemoApp.xcodeproj">
+            BuildableName = "SDKDemoZKRPS.app"
+            BlueprintName = "SDKDemoZKRPS"
+            ReferencedContainer = "container:SDKDemoZKRPS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SDKDemoApp.app"
-            BlueprintName = "SDKDemoApp"
-            ReferencedContainer = "container:SDKDemoApp.xcodeproj">
+            BuildableName = "SDKDemoZKRPS.app"
+            BlueprintName = "SDKDemoZKRPS"
+            ReferencedContainer = "container:SDKDemoZKRPS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
