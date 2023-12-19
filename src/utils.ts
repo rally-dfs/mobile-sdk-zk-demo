@@ -3,20 +3,25 @@ import { RPC_URL, RPS_ADDRESS } from "./constants";
 import RPS_ABI from "./contracts/RPS_ABI.json";
 import { RPS } from "./contracts/RPS";
 import { getWallet } from "@rly-network/mobile-sdk";
+import { Share } from "react-native";
+
+const provider = new providers.JsonRpcProvider(RPC_URL);
+
+const rps = new Contract(
+  RPS_ADDRESS,
+  RPS_ABI,
+  provider,
+) as RPS;
 
 export const sleep = (ms: number) =>
   new Promise((resolve: any) => setTimeout(resolve, ms));
 
 export const getProvider = () => {
-  return new providers.JsonRpcProvider(RPC_URL);
+  return provider;
 }
 
 export const getRPSContract = () => {
-  return new Contract(
-    RPS_ADDRESS,
-    RPS_ABI,
-    getProvider(),
-  ) as RPS;
+  return rps;
 }
 
 export const generateSignatureString = (nonce: number): string => {
@@ -34,15 +39,21 @@ export const getSecretFromNonce = async (nonce: number): Promise<bigint> => {
   return BigInt(signature);
 }
 
-export const getNonce = async (): Promise<number> => {
-  const wallet = await getWallet();
-  const rps = getRPSContract();
-
-  if (!wallet) {
-    throw new Error('Wallet not initialized');
+export const moveToEmoji = (move: number): string => {
+  switch (move) {
+    case 0:
+      return '✊';
+    case 1:
+      return '✋';
+    case 2:
+      return '✌️';
+    default:
+      return '❓';
   }
+}
 
-  const nonce = await rps.getNonce(wallet.address);
-
-  return nonce.toNumber();
+export const shareNewRound = async (roundId: number) => {
+  await Share.share({
+    message: `You've been challenged to a game of Rock Paper Scissors. rlyrps://play/${roundId}`
+  });
 }

@@ -19,16 +19,6 @@ export default function LandingScreen(): JSX.Element {
   const [takingAction, setTakingAction] = useState(false);
   const [, setRlyAccount] = useRecoilState(account);
 
-  const { calculateProof: calculateAttestProof } = useProofGen<{
-    readonly move: BigInt;
-    readonly secret: BigInt;
-  }>(require('../circuits/attestValidMove.wasm'), require('../circuits/attestValidMove.zkey'), 1);
-
-  const { calculateProof: calculateRevealProof } = useProofGen<{
-    readonly moveAttestation: BigInt;
-    readonly secret: BigInt;
-  }>(require('../circuits/revealMove.wasm'), require('../circuits/revealMove.zkey'), 1);
-
   const setupAccount = async () => {
     setTakingAction(true);
 
@@ -38,36 +28,6 @@ export default function LandingScreen(): JSX.Element {
     setRlyAccount(act);
 
   };
-
-  const calculateBothProofs = async () => {
-    try {
-      const secret = 123152419872319823719238712098n;
-      const move = 1n;
-      const attestResults = await calculateAttestProof({ move, secret });
-      console.log('\nAttest valid move proof')
-      attestResults.proof.forEach((x: bigint) => console.log("0x" + x.toString(16) + ","));
-
-      let textString = "";
-      attestResults.proof.forEach((x: bigint) => {
-        textString += base64.encode(BigNumber.from(x).toHexString());
-      });
-      console.log(textString);
-
-      console.log('\nMove Attestation: ', "0x" + attestResults.publicSignals[0].toString(16));
-
-      const revealResults = await calculateRevealProof({ moveAttestation: attestResults.publicSignals[0], secret });
-      console.log('\nReveal move proof')
-      revealResults.proof.forEach((x: BigInt) => console.log("0x" + x.toString(16) + ","));
-
-      if (move === revealResults.publicSignals[0]) {
-        console.log('Move revealed correctly')
-      }
-
-
-    } catch (e) {
-      console.error(e);
-    }
-  }
 
   return (
     <>
@@ -79,10 +39,6 @@ export default function LandingScreen(): JSX.Element {
             style={styles.logoImage}
           />
           <View style={{ marginTop: 96 }}>
-            <StandardButton
-              title="Calculate proofs"
-              onPress={calculateBothProofs}
-            />
             <View style={{ marginTop: 12 }}>
               <StandardButton
                 title="Setup"

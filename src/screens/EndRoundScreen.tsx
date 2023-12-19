@@ -9,10 +9,10 @@ import InfoButton from '../components/InfoButton';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
-import { balance as balanceState, errorMessage } from '../state';
+import { balance as balanceState, account as accountState, errorMessage } from '../state';
 import { useProofGen } from '../hooks/useProofGen';
 import { BigNumber } from 'ethers';
-import { getNonce, getProvider, getRPSContract, getSecretFromNonce } from '../utils';
+import { getProvider, getRPSContract, getSecretFromNonce } from '../utils';
 import { RPS } from '../contracts/RPS';
 import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gsnClient/utils';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -24,19 +24,18 @@ type Props = NativeStackScreenProps<RootStackParamList, 'EndRound'>;
 export default function EndRoundScreen({ route, navigation }: Props) {
   const provider = getProvider();
   const rps = getRPSContract();
-  const { txHash } = route.params;
+  const { roundId } = route.params;
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [txMined, setTxMined] = useState(false);
   const [endRoundTxHash, setEndRoundTxHash] = useState('');
-  const [account, setAccount] = useState('');
-  const [roundId, setRoundId] = useState(0)
   const [winner, setWinner] = useState(0)
   const [moveAttestation, setMoveAttestation] = useState('');
   const [secret, setSecret] = useState(0n);
   const [move, setMove] = useState<Move>(null);
   const [proof, setProof] = useState<BigInt[]>([]);
   const setErrorMessage = useSetRecoilState(errorMessage);
+  const [account] = useRecoilState(accountState);
   const { calculateProof: calculateRevealProof } = useProofGen<{
     readonly moveAttestation: BigInt;
     readonly secret: BigInt;
@@ -78,34 +77,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     const getChainData = async () => {
-      if (!txHash || txHash === '') {
-        return;
-      }
-
       setStatus('Getting chain data...');
-      const fromAccount = await getAccount();
-
-      if (!fromAccount) {
-        throw new Error('Wallet not initialized');
-      }
-
-      setAccount(fromAccount);
-
-      const receipt = await provider.getTransactionReceipt(txHash);
-
-      const logs = receipt.logs.filter((x) => x.address === rps.address && x).map((x) => rps.interface.parseLog(x));
-      if (logs.length === 0) {
-        throw new Error('No logs found');
-      }
-      const log = logs[0];
-
-      if (log.name !== 'Move2Played') {
-        throw new Error('No Move2Played event found');
-      }
-
-      const roundId = log.args.roundId as BigNumber
-
-      setRoundId(roundId.toNumber());
 
       const { nonce, move1Attestation } = await rps.getRound(roundId);
 
@@ -122,7 +94,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
         body: 'Error was: ' + e.message,
       });
     });
-  }, [txHash]);
+  }, [roundId]);
 
   useEffect(() => {
     if (moveAttestation === '' || secret === 0n) {
@@ -167,7 +139,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
       const { maxFeePerGas, maxPriorityFeePerGas } = await provider.getFeeData();
 
       const gsnTx: GsnTransactionDetails = {
-        from: account,
+        from: account || "",
         data: tx.data || "",
         value: "0",
         to: rps.address,
@@ -207,15 +179,6 @@ export default function EndRoundScreen({ route, navigation }: Props) {
       const result = await Share.share({
         message: `Someone won, check out https://mumbai.polygonscan.com/tx/${endRoundTxHash}#eventlog`
       });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
     } catch (e: any) {
       setErrorMessage({
         title: 'Unable to share move',
@@ -263,8 +226,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
                 <View style={{ marginTop: 12 }}>
                   <Text>You lost!</Text>
                 </View>
-              )
-              }
+              )}
               <View style={{ marginTop: 12 }}>
                 <StandardButton
                   title="Share with opponent"
@@ -280,4 +242,3 @@ export default function EndRoundScreen({ route, navigation }: Props) {
     </>
   );
 }
-// Someone won, check out https://mumbai.polygonscan.com/tx/0x3ccdee26405cf5687096dd279911a82d33dfeba0582958e1d8ec3e00efab1a16#eventlog

@@ -1,7 +1,8 @@
-import React, {ReactNode, useState} from 'react';
+import React, { ReactNode, useState } from 'react';
 import {
   Image,
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -9,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-export default function InfoButton({children}: {children: ReactNode}) {
+export default function InfoButton({ children }: { children: ReactNode }) {
   const [showInfo, setShowInfo] = useState(false);
   return (
     <>
@@ -34,7 +35,10 @@ export default function InfoButton({children}: {children: ReactNode}) {
                 <Text style={styles.closeIcon}>{'\u2715'}</Text>
               </TouchableWithoutFeedback>
             </View>
-            {children}
+            <ScrollView>
+
+              {children}
+            </ScrollView>
           </View>
         </View>
       </Modal>

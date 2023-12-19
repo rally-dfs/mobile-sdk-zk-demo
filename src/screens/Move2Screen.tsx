@@ -2,12 +2,12 @@
 import { getAccount } from '@rly-network/mobile-sdk';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Share, Text, View } from 'react-native';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { RlyNetwork } from '../../App';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
-import { errorMessage } from '../state';
+import { account as accountState, errorMessage } from '../state';
 import { BigNumber } from 'ethers';
 import { getProvider, getRPSContract } from '../utils';
 import { RPS } from '../contracts/RPS';
@@ -22,63 +22,20 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Move2'>;
 export default function Move2Screen({ route, navigation }: Props) {
   const provider = getProvider();
   const rps = getRPSContract();
-  const { txHash } = route.params;
+  const { roundId } = route.params;
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [move, setMove] = useState<Move>(null);
   const [move2TxHash, setMove2TxHash] = useState('');
-  const [account, setAccount] = useState('');
-  const [roundId, setRoundId] = useState(0);
   const setErrorMessage = useSetRecoilState(errorMessage);
+  const [account] = useRecoilState(accountState);
 
   const appendStatus = (newStatus: string) => {
     setStatus(status + "\n" + newStatus);
   }
 
   useEffect(() => {
-    const getChainData = async () => {
-      if (!txHash || txHash === '') {
-        return;
-      }
-
-      setStatus('Getting chain data...');
-      const fromAccount = await getAccount();
-
-      if (!fromAccount) {
-        throw new Error('Wallet not initialized');
-      }
-
-      setAccount(fromAccount);
-
-      const receipt = await provider.getTransactionReceipt(txHash);
-
-      const logs = receipt.logs.filter((x) => x.address === rps.address && x).map((x) => rps.interface.parseLog(x));
-      if (logs.length === 0) {
-        throw new Error('No logs found');
-      }
-      const log = logs[0];
-
-      if (log.name !== 'RoundStarted') {
-        throw new Error('No RoundStarted event found');
-      }
-
-      const roundId = log.args.roundId as BigNumber
-
-      setRoundId(roundId.toNumber());
-
-      setStatus('Getting chain data...✅');
-    }
-
-    getChainData().catch((e) => {
-      setErrorMessage({
-        title: 'Unable to get chain data',
-        body: 'Error was: ' + e.message,
-      });
-    });
-  }, [txHash]);
-
-  useEffect(() => {
-    if (move === null || !txHash || txHash === '') {
+    if (move === null || !roundId || roundId === 0) {
       return;
     }
 
@@ -103,7 +60,7 @@ export default function Move2Screen({ route, navigation }: Props) {
       const { maxFeePerGas, maxPriorityFeePerGas } = await provider.getFeeData();
 
       const gsnTx: GsnTransactionDetails = {
-        from: account,
+        from: account || "",
         data: tx.data || "",
         value: "0",
         to: rps.address,
@@ -134,7 +91,7 @@ export default function Move2Screen({ route, navigation }: Props) {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: `I played my move, time to finish up and reveal the winner. rlyrps://finish/${move2TxHash}`
+        message: `I played my move, time to finish up and reveal the winner. rlyrps://finish/${roundId}`
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -199,11 +156,12 @@ export default function Move2Screen({ route, navigation }: Props) {
           {move2TxHash && (
             <>
               <View style={{ marginTop: 12 }}>
-                <Text>{move2TxHash}</Text>
+                <Text>You played your move in Round #{roundId}. </Text>
+                <Text>To find out the winner share with your original opponent.</Text>
               </View>
               <View style={{ marginTop: 12 }}>
                 <StandardButton
-                  title="Share with opponent"
+                  title="Share"
                   onPress={() => {
                     onShare();
                   }}

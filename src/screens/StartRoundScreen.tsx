@@ -1,36 +1,37 @@
 /* eslint-disable react-native/no-inline-styles */
-import { useNavigation } from '@react-navigation/native';
-import { getAccount } from '@rly-network/mobile-sdk';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Share, Text, View } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { RlyNetwork } from '../../App';
-import InfoButton from '../components/InfoButton';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
-import { balance as balanceState, errorMessage } from '../state';
+import { account as accountState, errorMessage } from '../state';
 import { useProofGen } from '../hooks/useProofGen';
 import { BigNumber } from 'ethers';
-import { getNonce, getProvider, getRPSContract, getSecretFromNonce } from '../utils';
+import { getProvider, getRPSContract, getSecretFromNonce, shareNewRound } from '../utils';
 import { RPS } from '../contracts/RPS';
 import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gsnClient/utils';
 import { Move } from './types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../components/AppRouting';
 
-export default function StartRoundScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'StartRound'>;
+
+export default function StartRoundScreen({ }: Props) {
   const rps = getRPSContract();
   const provider = getProvider();
-  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+  const [txMined, setTxMined] = useState(false);
   const [txHash, setTxHash] = useState('');
   const [status, setStatus] = useState('');
-  const [account, setAccount] = useState('');
   const [move, setMove] = useState<Move>(null);
+  const [roundId, setRoundId] = useState(0);
   const [nonce, setNonce] = useState(0);
   const [secret, setSecret] = useState(0n);
   const [moveAttestation, setMoveAttestation] = useState('');
   const [proof, setProof] = useState<BigInt[]>([]);
-  const [, setBalance] = useRecoilState(balanceState);
+  const [account] = useRecoilState(accountState);
   const setErrorMessage = useSetRecoilState(errorMessage);
   const { calculateProof: calculateAttestProof } = useProofGen<{
     readonly move: BigInt;
@@ -43,20 +44,19 @@ export default function StartRoundScreen() {
 
   useEffect(() => {
     const getChainData = async () => {
-      setStatus('Getting chain data...');
-      const nonce = await getNonce();
+      setStatus('Getting nonce from network...');
+      if (!account) {
+        throw new Error('No account found');
+      }
+
+      const nonce = (await rps.getNonce(account)).toNumber();
+
       setNonce(nonce);
+
       const newSecret = await getSecretFromNonce(nonce);
       setSecret(newSecret);
 
-      const fromAccount = await getAccount();
-
-      if (!fromAccount) {
-        throw new Error('Wallet not initialized');
-      }
-
-      setAccount(fromAccount);
-      setStatus('Getting chain data...✅');
+      setStatus('Getting nonce from network...✅');
     }
 
     getChainData().catch((e) => {
@@ -66,6 +66,41 @@ export default function StartRoundScreen() {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (!txMined) {
+      return;
+    }
+
+    const getChainData = async () => {
+      appendStatus('Waiting for mining...');
+      setLoading(true);
+      const receipt = await provider.getTransactionReceipt(txHash);
+
+      const logs = receipt.logs.filter((x) => x.address === rps.address && x).map((x) => rps.interface.parseLog(x));
+      if (logs.length === 0) {
+        throw new Error('No logs found');
+      }
+      const log = logs[0];
+
+      if (log.name !== 'RoundStarted') {
+        throw new Error('No RoundStarted event found');
+      }
+
+      const newRoundId = log.args.roundId as BigNumber;
+      setRoundId(newRoundId.toNumber());
+
+      appendStatus('Waiting for mining...✅');
+      setLoading(false);
+    }
+
+    getChainData().catch((e) => {
+      setErrorMessage({
+        title: 'Unable to get chain data',
+        body: 'Error was: ' + e.message,
+      });
+    })
+  }, [txMined]);
 
   useEffect(() => {
     if (move === null || secret === 0n) {
@@ -122,7 +157,7 @@ export default function StartRoundScreen() {
       const { maxFeePerGas, maxPriorityFeePerGas } = await provider.getFeeData();
 
       const gsnTx: GsnTransactionDetails = {
-        from: account,
+        from: account || "",
         data: tx.data || "",
         value: "0",
         to: rps.address,
@@ -133,12 +168,24 @@ export default function StartRoundScreen() {
 
       const result = await RlyNetwork.relay?.(gsnTx);
 
-      if (result) {
-        setTxHash(result);
+      if (!result) {
+        throw new Error('Unable to relay transaction');
       }
+
+      setTxHash(result);
 
       setLoading(false);
       appendStatus('Submitting to chain...✅');
+
+      provider.waitForTransaction(result).then(() => {
+        setTxMined(true);
+      }).catch((e) => {
+        setLoading(false);
+        setErrorMessage({
+          title: 'Unable to validate transaction mined',
+          body: 'Error was: ' + e.message,
+        })
+      })
     }
 
     submitToChain().catch((e) => {
@@ -152,18 +199,7 @@ export default function StartRoundScreen() {
 
   const onShare = async () => {
     try {
-      const result = await Share.share({
-        message: `You've been challenged to a game of Rock Paper Scissors. rlyrps://play/${txHash}`
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
+      shareNewRound(roundId);
     } catch (e: any) {
       setErrorMessage({
         title: 'Unable to share move',
@@ -215,14 +251,14 @@ export default function StartRoundScreen() {
           <View style={{ marginTop: 12 }}>
             <Text>{status}</Text>
           </View>
-          {txHash && (
+          {roundId !== 0 && (
             <>
               <View style={{ marginTop: 12 }}>
-                <Text>{txHash}</Text>
+                <Text>You started Round #{roundId}.</Text>
               </View>
               <View style={{ marginTop: 12 }}>
                 <StandardButton
-                  title="Share with opponent"
+                  title="Invite an opponent to play"
                   onPress={() => {
                     onShare();
                   }}
@@ -230,8 +266,6 @@ export default function StartRoundScreen() {
               </View>
             </>
           )}
-
-
         </View>
       </ScreenContainer>
     </>
