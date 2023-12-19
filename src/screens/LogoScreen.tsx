@@ -129,9 +129,17 @@ export default function LogoScreen({ navigation }: Props) {
     }
 
     if (round.ended) {
-      const winnerAccount = round.winner === 1 ? round.player1 : round.player2;
       const title = `${player1} (${moveToEmoji(round.move1)}) vs ${player2} (${moveToEmoji(round.move2)})`;
-      const subTitle = winnerAccount === account ? 'You won!' : winnerAccount.substring(0, 6) + '... won!';
+      let subTitle = ''
+
+      if (round.winner === 0) {
+        subTitle = 'Tie!';
+      } else if ((round.winner === 1 && round.player1 === account) || (round.winner === 2 && round.player2 === account)) {
+        subTitle = 'You won!';
+      } else {
+        const winnerAccount = round.winner === 1 ? round.player1 : round.player2;
+        subTitle = winnerAccount.substring(0, 6) + '... won!';
+      }
 
       return (<Round index={round.roundId} title={title} subTitle={subTitle} />);
     }

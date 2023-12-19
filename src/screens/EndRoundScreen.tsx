@@ -187,6 +187,31 @@ export default function EndRoundScreen({ route, navigation }: Props) {
     }
   }
 
+  const renderWinner = () => {
+
+    if (winner === 0) {
+      return (
+        <View style={{ marginTop: 12 }}>
+          <Text>Tie!</Text>
+        </View>
+      );
+    }
+
+    if (winner === 1) {
+      return (
+        <View style={{ marginTop: 12 }}>
+          <Text>You won!</Text>
+        </View>
+      );
+    }
+
+    return (
+      <View style={{ marginTop: 12 }}>
+        <Text>You lost!</Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <StandardHeader />
@@ -214,19 +239,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
           )}
           {endRoundTxHash && (
             <>
-              <View style={{ marginTop: 12 }}>
-                <Text>{endRoundTxHash}</Text>
-              </View>
-              {winner !== 0 &&
-                winner === 1 ? (
-                <View style={{ marginTop: 12 }}>
-                  <Text>You won!</Text>
-                </View>
-              ) : (
-                <View style={{ marginTop: 12 }}>
-                  <Text>You lost!</Text>
-                </View>
-              )}
+              {renderWinner()}
               <View style={{ marginTop: 12 }}>
                 <StandardButton
                   title="Share with opponent"
