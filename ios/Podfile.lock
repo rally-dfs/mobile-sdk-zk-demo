@@ -1127,12 +1127,16 @@ PODS:
     - glog
     - hermes-engine
     - RCT-Folly (= 2021.07.22.00)
-    - React-callinvoker (= 0.72.3)
-    - React-cxxreact (= 0.72.3)
-    - React-jsi (= 0.72.3)
-    - React-logger (= 0.72.3)
-    - React-perflogger (= 0.72.3)
+    - React-callinvoker (= 0.72.7)
+    - React-cxxreact (= 0.72.7)
+    - React-jsi (= 0.72.7)
+    - React-logger (= 0.72.7)
+    - React-perflogger (= 0.72.7)
   - rly-network-mobile-sdk (1.4.0):
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
     - React-Core
     - ReactCommon/turbomodule/core
   - RNCClipboard (1.11.2):
@@ -1407,7 +1411,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 7649c3b46c8dee1853691ecf60146a16ae59253c
   React-utils: 56838edeaaf651220d1e53cd0b8934fb8ce68415
   ReactCommon: 5f704096ccf7733b390f59043b6fa9cc180ee4f6
-  rly-network-mobile-sdk: da3c51d36e0df0258ddf8e3be207933cf1b52554
+  rly-network-mobile-sdk: 63ed01c59afbf87dee081e9bdcaca900765b9d4d
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNScreens: 4666ca0a74ee229b2332c5d22d2a8b81ba9202be
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
@@ -1416,4 +1420,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: adf851d8c2bab513e2d8b485963772a87a60ee09
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1
