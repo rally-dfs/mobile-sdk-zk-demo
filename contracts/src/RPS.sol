@@ -200,7 +200,7 @@ contract RPS is ERC2771Recipient {
         emit Move2Played(params.roundId);
     }
 
-    /// @notice Starts a new round and opens up play
+    /// @notice Ends a round with two plays and closes play
     /// @dev Requires a valid RevealMove zk proof created off chain
     /// @param params The params necessary to end a round, encoded as `EndParams` in calldata
     function endRound(EndParams calldata params) external {
