@@ -3,7 +3,7 @@ import { getAccount } from '@rly-network/mobile-sdk';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Share, Text, View } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { RlyNetwork } from '../../App';
+import { RlyNetwork } from '../App';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
@@ -125,7 +125,7 @@ export default function Move2Screen({ route, navigation }: Props) {
             <StandardButton
               title="Play Rock"
               onPress={() => {
-                setMove(0n);
+                setMove(0);
               }}
             />
           </View>
@@ -133,7 +133,7 @@ export default function Move2Screen({ route, navigation }: Props) {
             <StandardButton
               title="Play Paper"
               onPress={() => {
-                setMove(1n);
+                setMove(1);
               }}
             />
           </View>
@@ -141,7 +141,7 @@ export default function Move2Screen({ route, navigation }: Props) {
             <StandardButton
               title="Play Scissors"
               onPress={() => {
-                setMove(2n);
+                setMove(2);
               }}
             />
           </View>

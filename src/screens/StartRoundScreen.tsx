@@ -1,20 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Share, Text, View } from 'react-native';
+import { BigNumber } from 'ethers';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { RlyNetwork } from '../../App';
+import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gsnClient/utils';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RlyNetwork } from '../App';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
 import { StandardHeader } from '../components/StandardHeader';
 import { account as accountState, errorMessage } from '../state';
-import { useProofGen } from '../hooks/useProofGen';
-import { BigNumber } from 'ethers';
 import { getProvider, getRPSContract, getSecretFromNonce, shareNewRound } from '../utils';
 import { RPS } from '../contracts/RPS';
-import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gsnClient/utils';
 import { Move } from './types';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../components/AppRouting';
+import { ATTEST_VALID_MOVE_ZKEY_PATH } from '../constants';
+import { useProofGen } from '../hooks/useProofGen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StartRound'>;
 
@@ -30,13 +31,14 @@ export default function StartRoundScreen({ }: Props) {
   const [nonce, setNonce] = useState(0);
   const [secret, setSecret] = useState(0n);
   const [moveAttestation, setMoveAttestation] = useState('');
-  const [proof, setProof] = useState<BigInt[]>([]);
+  const [proof, setProof] = useState<string[]>([]);
   const [account] = useRecoilState(accountState);
   const setErrorMessage = useSetRecoilState(errorMessage);
   const { calculateProof: calculateAttestProof } = useProofGen<{
     readonly move: BigInt;
     readonly secret: BigInt;
-  }>(require('../circuits/attestValidMove.wasm'), require('../circuits/attestValidMove.zkey'), 1);
+  }>(require('../circuits/attestValidMove.wasm'), ATTEST_VALID_MOVE_ZKEY_PATH, 1);
+
 
   const appendStatus = (newStatus: string) => {
     setStatus(status + "\n" + newStatus);
@@ -106,11 +108,14 @@ export default function StartRoundScreen({ }: Props) {
     if (move === null || secret === 0n) {
       return;
     }
+
     const calculateProof = async () => {
       appendStatus('Calculating proof...');
       setLoading(true);
-      const attestResults = await calculateAttestProof({ move, secret });
-      const newMoveAttestation = "0x" + attestResults.publicSignals[0].toString(16);
+
+      const attestResults = await calculateAttestProof({ move: BigInt(move), secret });
+
+      const newMoveAttestation = attestResults.publicSignals[0];
 
       setProof(attestResults.proof);
       setMoveAttestation(newMoveAttestation);
@@ -124,6 +129,7 @@ export default function StartRoundScreen({ }: Props) {
         title: 'Unable to calculate proof',
         body: 'Error was: ' + e.message,
       });
+      throw e;
     })
   }, [move, secret]);
 
@@ -223,7 +229,7 @@ export default function StartRoundScreen({ }: Props) {
             <StandardButton
               title="Play Rock"
               onPress={() => {
-                setMove(0n);
+                setMove(0);
               }}
             />
           </View>
@@ -231,7 +237,7 @@ export default function StartRoundScreen({ }: Props) {
             <StandardButton
               title="Play Paper"
               onPress={() => {
-                setMove(1n);
+                setMove(1);
               }}
             />
           </View>
@@ -239,7 +245,7 @@ export default function StartRoundScreen({ }: Props) {
             <StandardButton
               title="Play Scissors"
               onPress={() => {
-                setMove(2n);
+                setMove(2);
               }}
             />
           </View>

@@ -4,7 +4,7 @@ import { getAccount } from '@rly-network/mobile-sdk';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Share, Text, View } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { RlyNetwork } from '../../App';
+import { RlyNetwork } from '../App';
 import InfoButton from '../components/InfoButton';
 import ScreenContainer from '../components/ScreenContainer';
 import StandardButton from '../components/StandardButton';
@@ -18,6 +18,7 @@ import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gs
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../components/AppRouting';
 import { Move } from './types';
+import { REVEAL_MOVE_ZKEY_PATH } from '../constants';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EndRound'>;
 
@@ -33,13 +34,13 @@ export default function EndRoundScreen({ route, navigation }: Props) {
   const [moveAttestation, setMoveAttestation] = useState('');
   const [secret, setSecret] = useState(0n);
   const [move, setMove] = useState<Move>(null);
-  const [proof, setProof] = useState<BigInt[]>([]);
+  const [proof, setProof] = useState<string[]>([]);
   const setErrorMessage = useSetRecoilState(errorMessage);
   const [account] = useRecoilState(accountState);
   const { calculateProof: calculateRevealProof } = useProofGen<{
     readonly moveAttestation: BigInt;
     readonly secret: BigInt;
-  }>(require('../circuits/revealMove.wasm'), require('../circuits/revealMove.zkey'), 1);
+  }>(require('../circuits/revealMove.wasm'), REVEAL_MOVE_ZKEY_PATH, 1);
 
   const appendStatus = (newStatus: string) => {
     setStatus(status + "\n" + newStatus);
@@ -103,7 +104,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
     const calculateProof = async () => {
       appendStatus('Calculating proof...');
       const revealResults = await calculateRevealProof({ moveAttestation: BigInt(moveAttestation), secret });
-      const foundMove = revealResults.publicSignals[0] as Move;
+      const foundMove = parseInt(revealResults.publicSignals[0]) as Move;
 
       setProof(revealResults.proof);
       setMove(foundMove);
