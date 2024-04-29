@@ -892,13 +892,10 @@ PODS:
     - React-Core
   - react-native-safe-area-context (4.10.1):
     - React-Core
-  - react-native-webassembly (0.3.3):
-    - RCT-Folly
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
+  - react-native-witness-calc (0.0.0):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - ReactCommon/turbomodule/core
   - React-nativeconfig (0.73.5)
   - React-NativeModulesApple (0.73.5):
     - glog
@@ -1113,7 +1110,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - "react-native-rapidsnark (from `../node_modules/@iden3/react-native-rapidsnark`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - react-native-webassembly (from `../node_modules/react-native-webassembly`)
+  - react-native-witness-calc (from `../node_modules/react-native-witness-calc`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1206,8 +1203,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@iden3/react-native-rapidsnark"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
-  react-native-webassembly:
-    :path: "../node_modules/react-native-webassembly"
+  react-native-witness-calc:
+    :path: "../node_modules/react-native-witness-calc"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1291,7 +1288,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 30d796a057e4e077d44b4c2ba17869fb8c1064eb
   react-native-rapidsnark: a64c8cb3bf444142af4c7ce2c189d4292fb10665
   react-native-safe-area-context: dcab599c527c2d7de2d76507a523d20a0b83823d
-  react-native-webassembly: bdd67f75a6145cbfdb3ab8de4ee0381f89e6b140
+  react-native-witness-calc: 6a28989b3a689e59feac886fd900954a0ff472ac
   React-nativeconfig: 78e2b14c0ee479449845b67bbe103343257cbcc0
   React-NativeModulesApple: 4fce13d416890352a7a9621427459fe738c4e79a
   React-perflogger: 0dd9f1725d55f8264b81efadd373fe1d9cca7dc2

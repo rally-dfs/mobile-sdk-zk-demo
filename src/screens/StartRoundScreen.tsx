@@ -14,8 +14,9 @@ import { getProvider, getRPSContract, getSecretFromNonce, shareNewRound } from '
 import { RPS } from '../contracts/RPS';
 import { Move } from './types';
 import { RootStackParamList } from '../components/AppRouting';
-import { ATTEST_VALID_MOVE_ZKEY_PATH } from '../constants';
+import { ATTEST_VALID_MOVE_DAT_PATH, ATTEST_VALID_MOVE_ZKEY_PATH } from '../constants';
 import { useProofGen } from '../hooks/useProofGen';
+import { calculateAttestValidMoveWitness } from 'react-native-witness-calc';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'StartRound'>;
 
@@ -35,9 +36,9 @@ export default function StartRoundScreen({ }: Props) {
   const [account] = useRecoilState(accountState);
   const setErrorMessage = useSetRecoilState(errorMessage);
   const { calculateProof: calculateAttestProof } = useProofGen<{
-    readonly move: BigInt;
-    readonly secret: BigInt;
-  }>(require('../circuits/attestValidMove.wasm'), ATTEST_VALID_MOVE_ZKEY_PATH, 1);
+    readonly move: string;
+    readonly secret: string;
+  }>(ATTEST_VALID_MOVE_DAT_PATH, ATTEST_VALID_MOVE_ZKEY_PATH, calculateAttestValidMoveWitness);
 
 
   const appendStatus = (newStatus: string) => {
@@ -113,7 +114,7 @@ export default function StartRoundScreen({ }: Props) {
       appendStatus('Calculating proof...');
       setLoading(true);
 
-      const attestResults = await calculateAttestProof({ move: BigInt(move), secret });
+      const attestResults = await calculateAttestProof({ move: move.toString(10), secret: secret.toString(10) });
 
       const newMoveAttestation = attestResults.publicSignals[0];
 

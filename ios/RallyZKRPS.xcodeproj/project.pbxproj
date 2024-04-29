@@ -10,6 +10,8 @@
 		00E356F31AD99517003FC87E /* RallyZKRPSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RallyZKRPSTests.m */; };
 		01BE09A82BD9A619008E2F23 /* attestValidMove.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 01BE09A62BD9A4B2008E2F23 /* attestValidMove.zkey */; };
 		01BE09A92BD9A619008E2F23 /* revealMove.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 01BE09A72BD9A4B2008E2F23 /* revealMove.zkey */; };
+		01E62F2E2BDA034E0077B789 /* attestValidMove.dat in Resources */ = {isa = PBXBuildFile; fileRef = 01E62F2D2BDA034E0077B789 /* attestValidMove.dat */; };
+		01E62F302BDA3CE40077B789 /* revealMove.dat in Resources */ = {isa = PBXBuildFile; fileRef = 01E62F2F2BDA3CE40077B789 /* revealMove.dat */; };
 		0A551117A1E005E0FFAB354F /* Pods_RallyZKRPS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85CF18A4259CA4158C5821A2 /* Pods_RallyZKRPS.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -28,12 +30,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		01E62F2B2BD9F96E0077B789 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* RallyZKRPSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RallyZKRPSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RallyZKRPSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RallyZKRPSTests.m; sourceTree = "<group>"; };
 		01BE09A62BD9A4B2008E2F23 /* attestValidMove.zkey */ = {isa = PBXFileReference; lastKnownFileType = file; path = attestValidMove.zkey; sourceTree = "<group>"; };
 		01BE09A72BD9A4B2008E2F23 /* revealMove.zkey */ = {isa = PBXFileReference; lastKnownFileType = file; path = revealMove.zkey; sourceTree = "<group>"; };
+		01E62F2D2BDA034E0077B789 /* attestValidMove.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = attestValidMove.dat; sourceTree = "<group>"; };
+		01E62F2F2BDA3CE40077B789 /* revealMove.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = revealMove.dat; path = ../../circuits/build/revealMove_cpp/revealMove.dat; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* RallyZKRPS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RallyZKRPS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RallyZKRPS/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = RallyZKRPS/AppDelegate.mm; sourceTree = "<group>"; };
@@ -87,6 +104,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		01E62F2C2BDA034E0077B789 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				01E62F2D2BDA034E0077B789 /* attestValidMove.dat */,
+				01BE09A62BD9A4B2008E2F23 /* attestValidMove.zkey */,
+				01E62F2F2BDA3CE40077B789 /* revealMove.dat */,
+				01BE09A72BD9A4B2008E2F23 /* revealMove.zkey */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* RallyZKRPS */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,8 +148,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				01BE09A62BD9A4B2008E2F23 /* attestValidMove.zkey */,
-				01BE09A72BD9A4B2008E2F23 /* revealMove.zkey */,
+				01E62F2C2BDA034E0077B789 /* resources */,
 				13B07FAE1A68108700A75B9A /* RallyZKRPS */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RallyZKRPSTests */,
@@ -189,6 +216,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				01E62F2B2BD9F96E0077B789 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,7 +278,9 @@
 				01BE09A82BD9A619008E2F23 /* attestValidMove.zkey in Resources */,
 				01BE09A92BD9A619008E2F23 /* revealMove.zkey in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				01E62F302BDA3CE40077B789 /* revealMove.dat in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				01E62F2E2BDA034E0077B789 /* attestValidMove.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

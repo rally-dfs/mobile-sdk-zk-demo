@@ -9,7 +9,18 @@ export const ATTEST_VALID_MOVE_ZKEY_PATH =
     ? RNFS.DocumentDirectoryPath
     : RNFS.MainBundlePath) + '/attestValidMove.zkey';
 
+export const ATTEST_VALID_MOVE_DAT_PATH =
+    (Platform.OS === 'android'
+      ? RNFS.DocumentDirectoryPath
+      : RNFS.MainBundlePath) + '/attestValidMove.dat'
+
 export const REVEAL_MOVE_ZKEY_PATH =
   (Platform.OS === 'android'
     ? RNFS.DocumentDirectoryPath
     : RNFS.MainBundlePath) + '/revealMove.zkey';
+
+export const REVEAL_MOVE_DAT_PATH =
+  (Platform.OS === 'android'
+    ? RNFS.DocumentDirectoryPath
+    : RNFS.MainBundlePath) + '/revealMove.dat';
+    

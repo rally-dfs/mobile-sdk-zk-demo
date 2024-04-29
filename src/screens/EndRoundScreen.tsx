@@ -18,7 +18,8 @@ import { GsnTransactionDetails } from '@rly-network/mobile-sdk/lib/typescript/gs
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../components/AppRouting';
 import { Move } from './types';
-import { REVEAL_MOVE_ZKEY_PATH } from '../constants';
+import { REVEAL_MOVE_DAT_PATH, REVEAL_MOVE_ZKEY_PATH } from '../constants';
+import { calculateRevealMoveWitness } from 'react-native-witness-calc';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EndRound'>;
 
@@ -38,9 +39,9 @@ export default function EndRoundScreen({ route, navigation }: Props) {
   const setErrorMessage = useSetRecoilState(errorMessage);
   const [account] = useRecoilState(accountState);
   const { calculateProof: calculateRevealProof } = useProofGen<{
-    readonly moveAttestation: BigInt;
-    readonly secret: BigInt;
-  }>(require('../circuits/revealMove.wasm'), REVEAL_MOVE_ZKEY_PATH, 1);
+    readonly moveAttestation: string;
+    readonly secret: string;
+  }>(REVEAL_MOVE_DAT_PATH, REVEAL_MOVE_ZKEY_PATH, calculateRevealMoveWitness);
 
   const appendStatus = (newStatus: string) => {
     setStatus(status + "\n" + newStatus);
@@ -103,7 +104,7 @@ export default function EndRoundScreen({ route, navigation }: Props) {
     }
     const calculateProof = async () => {
       appendStatus('Calculating proof...');
-      const revealResults = await calculateRevealProof({ moveAttestation: BigInt(moveAttestation), secret });
+      const revealResults = await calculateRevealProof({ moveAttestation, secret: secret.toString(10) });
       const foundMove = parseInt(revealResults.publicSignals[0]) as Move;
 
       setProof(revealResults.proof);
