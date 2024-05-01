@@ -18,32 +18,32 @@ RCT_EXPORT_METHOD(calculateAttestValidMoveWitness:(NSString *)datPath
     } 
     
     const char *datBytes = (char *)[fileData bytes];
-    NSUInteger datLength = [fileData length];
+    unsigned long datLength = [fileData length];
     
     const char *jsonBytes = [jsonString UTF8String];
-    size_t jsonLength = strlen(jsonBytes);
+    unsigned long jsonLength = strlen(jsonBytes);
 
-    size_t witnessBufferSize = 8*1024*1024;
-    char witnessBuffer[witnessBufferSize];
+    unsigned long witnessBufferSize = 8*1024*1024;
+    char *witnessBuffer = (char *)malloc(witnessBufferSize);
 
-    size_t witnessSize = sizeof(witnessBuffer);
-
-    char   errorMessage[256];
+    unsigned long errorMessageMaxSize = 256;
+    char   errorMessage[errorMessageMaxSize];
 
     int error = witnesscalc_attestValidMove(
-                        datBytes, (unsigned long)datLength,
+                        datBytes, datLength,
                         jsonBytes, jsonLength,
-                        witnessBuffer, &witnessSize,
-                        errorMessage, sizeof(errorMessage));
+                        witnessBuffer, &witnessBufferSize,
+                        errorMessage, errorMessageMaxSize);
 
     if (error == 0) {
-        NSData *witness = [[NSData alloc] initWithBytes:witnessBuffer length:witnessSize];
+        NSData *witness = [[NSData alloc] initWithBytes:witnessBuffer length:witnessBufferSize];
         NSString *base64Encoded = [witness base64EncodedStringWithOptions:0];
         resolve(base64Encoded);
     } else {
         NSString *errorString = [NSString stringWithCString:errorMessage encoding:NSUTF8StringEncoding];
         reject(@"error", errorString, nil);
     }
+    free(witnessBuffer);
 }
 
 RCT_EXPORT_METHOD(calculateRevealMoveWitness:(NSString *)datPath
@@ -56,35 +56,35 @@ RCT_EXPORT_METHOD(calculateRevealMoveWitness:(NSString *)datPath
 
     if (datLoadError) {
         NSLog(@"Error reading file: %@", datLoadError.localizedDescription);
-    } 
+    }
     
     const char *datBytes = (char *)[fileData bytes];
-    NSUInteger datLength = [fileData length];
+    unsigned long datLength = [fileData length];
     
     const char *jsonBytes = [jsonString UTF8String];
-    size_t jsonLength = strlen(jsonBytes);
+    unsigned long jsonLength = strlen(jsonBytes);
 
-    size_t witnessBufferSize = 8*1024*1024;
-    char witnessBuffer[witnessBufferSize];
+    unsigned long witnessBufferSize = 8*1024*1024;
+    char *witnessBuffer = (char *)malloc(witnessBufferSize);
 
-    size_t witnessSize = sizeof(witnessBuffer);
-
-    char   errorMessage[256];
+    unsigned long errorMessageMaxSize = 256;
+    char   errorMessage[errorMessageMaxSize];
 
     int error = witnesscalc_revealMove(
-                        datBytes, (unsigned long)datLength,
+                        datBytes, datLength,
                         jsonBytes, jsonLength,
-                        witnessBuffer, &witnessSize,
-                        errorMessage, sizeof(errorMessage));
+                        witnessBuffer, &witnessBufferSize,
+                        errorMessage, errorMessageMaxSize);
 
     if (error == 0) {
-        NSData *witness = [[NSData alloc] initWithBytes:witnessBuffer length:witnessSize];
+        NSData *witness = [[NSData alloc] initWithBytes:witnessBuffer length:witnessBufferSize];
         NSString *base64Encoded = [witness base64EncodedStringWithOptions:0];
         resolve(base64Encoded);
     } else {
         NSString *errorString = [NSString stringWithCString:errorMessage encoding:NSUTF8StringEncoding];
         reject(@"error", errorString, nil);
     }
+    free(witnessBuffer);
 }
 
 @end
