@@ -20,25 +20,47 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wno-unused-value)
 # Here, we add a dependency to the shared_library prebuilt
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../jniLibs/)
 set(
-        SHARED_WITNESS_CALC_LIBRARY_SO
+        SHARED_WITNESS_CALC_ATTEST_LIBRARY_SO
         ${CMAKE_CURRENT_SOURCE_DIR}/../../jniLibs/${CMAKE_ANDROID_ARCH_ABI}/libwitnesscalc_attestValidMove.so
 )
 # IMPORTED allows to depends on a library file outside the project.
 add_library(
-        witnesscalc_prover_lib
+        witnesscalc_attest_lib
         SHARED
         IMPORTED
 )
 # IMPORTED_LOCATION specifies the location of the library file on disk
 set_target_properties(
-        witnesscalc_prover_lib
+        witnesscalc_attest_lib
         PROPERTIES
-        IMPORTED_LOCATION ${SHARED_WITNESS_CALC_LIBRARY_SO}
+        IMPORTED_LOCATION ${SHARED_WITNESS_CALC_ATTEST_LIBRARY_SO}
 )
 # Add the library to this project
 target_link_libraries(
         ${PROJECT_NAME}
-        witnesscalc_prover_lib
+        witnesscalc_attest_lib
+)
+
+set(
+        SHARED_WITNESS_CALC_REVEAL_LIBRARY_SO
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../jniLibs/${CMAKE_ANDROID_ARCH_ABI}/libwitnesscalc_revealMove.so
+)
+# IMPORTED allows to depends on a library file outside the project.
+add_library(
+        witnesscalc_reveal_lib
+        SHARED
+        IMPORTED
+)
+# IMPORTED_LOCATION specifies the location of the library file on disk
+set_target_properties(
+        witnesscalc_reveal_lib
+        PROPERTIES
+        IMPORTED_LOCATION ${SHARED_WITNESS_CALC_REVEAL_LIBRARY_SO}
+)
+# Add the library to this project
+target_link_libraries(
+        ${PROJECT_NAME}
+        witnesscalc_reveal_lib
 )
 
 # Add the log library

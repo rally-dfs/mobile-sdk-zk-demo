@@ -42,7 +42,27 @@ class WitnessCalcModule(reactContext: ReactApplicationContext) :
   
   @ReactMethod
   fun calculateRevealMoveWitness(datPath: String, jsonStr: String, promise: Promise) {
-    promise.resolve("yay")
+    val witnessCalcJNI = WitnessCalcJniBridge();
+
+    val circuitByteArray = File(datPath).readBytes()
+    val jsonByteArray = jsonStr.toByteArray()
+
+    val wtnsBuffer = ByteArray(8*1024*1024);
+    val errorMsg = ByteArray(256);
+
+    val statusCode = witnessCalcJNI.revealMove(
+      circuitByteArray, circuitByteArray.size.toLong(),
+      jsonByteArray, jsonByteArray.size.toLong(),
+      wtnsBuffer, longArrayOf(wtnsBuffer.size.toLong()),
+      errorMsg, errorMsg.size.toLong())
+
+    if (statusCode != 0) {
+      val errorString = String(errorMsg, StandardCharsets.UTF_8)
+      promise.reject(java.lang.String.valueOf(statusCode), errorString)
+      return
+    }
+
+    promise.resolve(Base64.encodeToString(wtnsBuffer, Base64.DEFAULT))
   }
 
   companion object {
@@ -58,8 +78,13 @@ class WitnessCalcJniBridge {
 
   external fun attestValidMove(
     circuitBuffer: ByteArray, circuitSize: Long,
-  jsonBuffer: ByteArray, jsonSize: Long,
-  wtnsBuffer: ByteArray, wtnsSize: LongArray,
-  errorMsg: ByteArray, errorMsgMaxSize: Long): Int
+    jsonBuffer: ByteArray, jsonSize: Long,
+    wtnsBuffer: ByteArray, wtnsSize: LongArray,
+    errorMsg: ByteArray, errorMsgMaxSize: Long): Int
 
+  external fun revealMove(
+    circuitBuffer: ByteArray, circuitSize: Long,
+    jsonBuffer: ByteArray, jsonSize: Long,
+    wtnsBuffer: ByteArray, wtnsSize: LongArray,
+    errorMsg: ByteArray, errorMsgMaxSize: Long): Int
 }
